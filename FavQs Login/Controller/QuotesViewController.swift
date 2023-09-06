@@ -23,7 +23,13 @@ class QuotesViewController: UIViewController {
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet var bookmarkButton: UIButton!
     
-    var backgroundIndex = 0
+    var fontIndex = 0
+    var fontSize = 18.0
+    
+    @IBOutlet var buttons: [UIButton]!
+    
+    @IBOutlet var quoteView: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +71,8 @@ class QuotesViewController: UIViewController {
     
     fileprivate func updateText() {
         if let quotes {
-            print(quotes[index].body.count)
-            if quotes[index].body.count > 400 {
+            print(quotes[index].body?.count)
+            if quotes[index].body?.count ?? 0 > 400 {
                 index += 1
             }
             
@@ -77,7 +83,7 @@ class QuotesViewController: UIViewController {
                 self.quoteBody.text = quotes[self.index].body
                 self.quoteAuthor.text = quotes[self.index].author
                 
-                if quotes[self.index].userDetails.favorite == true {
+                if quotes[self.index].userDetails?.favorite == true {
                     self.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
                 } else {
                     self.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
@@ -136,11 +142,96 @@ class QuotesViewController: UIViewController {
         return controller
     }
     
-    @IBAction func changeBackground(_ sender: Any) {
-        backgroundIndex += 1
+    @IBAction func logOut(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Logout Confirmation", message: "This action will log you out of your account. Continue?", preferredStyle: .alert)
+        
+        let logOutAction = UIAlertAction(title: "Confirm", style: .default) { [weak self]_ in
+            print("logging out!")
+            let urlString = "https://favqs.com/api/session"
+            var urlRequest = URLRequest(url: URL(string: urlString)!)
+            urlRequest.httpMethod = "DELETE"
+            urlRequest.setValue("Token token=\"6f0c8d1ee7b86faab07fd9ee369e3fdf\"", forHTTPHeaderField: "Authorization")
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue(self?.userTokenHeader, forHTTPHeaderField: "User-Token")
+            
+            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+                
+                if let data, let response = String(data: data, encoding: .utf8) {
+                    print("logged out",response)
+                }
+            }.resume()
+            
+            if let controller = self?.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+                controller.modalPresentationStyle = .fullScreen
+                self?.present(controller, animated: false)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addAction(logOutAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    
+    
+    @IBAction func share(_ sender: Any) {
+        
+        for button in buttons {
+            button.isHidden = true
+        }
+        
+        let renderer = UIGraphicsImageRenderer(size: quoteView.bounds.size)
+        let image = renderer.image { context in
+            quoteView.drawHierarchy(in: quoteView.bounds, afterScreenUpdates: true)
+        }
+        let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(controller, animated: true)
+        
+        for button in buttons {
+            button.isHidden = false
+        }
+        
+//        if let quotes {
+//            let body = quotes[index-1].body
+//            let author = quotes[index-1].author
+//            let controller = UIActivityViewController(activityItems: [body,"\n",author], applicationActivities: nil)
+//            present(controller, animated: true)
+//        }
+    }
+    
+    
+    @IBAction func changeFont(_ sender: UISwipeGestureRecognizer) {
+        print("swiped")
+        
+        let fontNames = ["Helvetica","American Typewriter","Bradley Hand","Gill Sans","Kailasa","Marker Felt","Snell Roundhand"]
+        
+        if sender.direction == .left {
+            fontIndex = (fontIndex + 1) % fontNames.count
+        } else if sender.direction == .right {
+            fontIndex = (fontIndex + fontNames.count - 1) % fontNames.count
+        } else if sender.direction == .up {
+            fontSize += 2.0
+        } else if sender.direction == .down {
+            fontSize -= 2.0
+        }
+        
+        fontSize = max(12.0, min(36.0, fontSize))
+        
+        let fontName = fontNames[fontIndex]
+        let font = UIFont(name: fontName, size: fontSize)
+        quoteBody.font = font
+        quoteAuthor.font = font
+        
         
     }
     
+    
+
+
+
     
     /*
     // MARK: - Navigation

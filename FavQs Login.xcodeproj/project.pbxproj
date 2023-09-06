@@ -19,6 +19,7 @@
 		AF76E85E2AA7246D00CFF72D /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76E85D2AA7246D00CFF72D /* UserSession.swift */; };
 		AF76E8602AA8113300CFF72D /* Favqs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76E85F2AA8113300CFF72D /* Favqs.swift */; };
 		AF76E8642AA8591600CFF72D /* FavQuotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76E8632AA8591600CFF72D /* FavQuotesTableViewController.swift */; };
+		AF76E8662AA8842D00CFF72D /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF76E8652AA8842D00CFF72D /* Font.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		AF76E85D2AA7246D00CFF72D /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		AF76E85F2AA8113300CFF72D /* Favqs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favqs.swift; sourceTree = "<group>"; };
 		AF76E8632AA8591600CFF72D /* FavQuotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavQuotesTableViewController.swift; sourceTree = "<group>"; };
+		AF76E8652AA8842D00CFF72D /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				AF76E8552AA6E62100CFF72D /* Response.swift */,
 				AF76E85D2AA7246D00CFF72D /* UserSession.swift */,
 				AF76E85F2AA8113300CFF72D /* Favqs.swift */,
+				AF76E8652AA8842D00CFF72D /* Font.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			files = (
 				AF76E8602AA8113300CFF72D /* Favqs.swift in Sources */,
 				AF76E8522AA6D7B600CFF72D /* LoginViewController.swift in Sources */,
+				AF76E8662AA8842D00CFF72D /* Font.swift in Sources */,
 				AF76E85A2AA723F100CFF72D /* QuotesViewController.swift in Sources */,
 				AF76E8642AA8591600CFF72D /* FavQuotesTableViewController.swift in Sources */,
 				AF76E83E2AA6CBC400CFF72D /* AppDelegate.swift in Sources */,
@@ -330,6 +334,8 @@
 				DEVELOPMENT_TEAM = 7WM9U7Y583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FavQs Login/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = myQuotes;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to your photo library to save the image.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -358,6 +364,8 @@
 				DEVELOPMENT_TEAM = 7WM9U7Y583;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FavQs Login/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = myQuotes;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to your photo library to save the image.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

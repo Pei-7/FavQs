@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        signinView.isHidden = true
         // Do any additional setup after loading the view.
         
     }
@@ -122,7 +122,7 @@ class LoginViewController: UIViewController {
     
     func showAlertOrSegue() {
         if let message {
-            let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Return", style: .default))
             present(alert, animated: true)
         } else if let login, let userToken {

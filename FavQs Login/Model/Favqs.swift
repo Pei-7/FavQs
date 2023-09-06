@@ -14,10 +14,10 @@ struct Favqs: Codable {
 
 struct Quotes: Codable {
     var id: Int
-    var url: String
-    var author: String
-    var body: String
-    var userDetails: Details
+    var url: String?
+    var author: String?
+    var body: String?
+    var userDetails: Details?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,5 +29,5 @@ struct Quotes: Codable {
 }
 
 struct Details: Codable {
-    var favorite: Bool
+    var favorite: Bool?
 }
