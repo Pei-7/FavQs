@@ -21,6 +21,9 @@ class QuotesViewController: UIViewController {
     var index = 0
     
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet var bookmarkButton: UIButton!
+    
+    var backgroundIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +33,6 @@ class QuotesViewController: UIViewController {
             self.quotes = quotes
             self.updateUI()
         }
-        
-        
-
-        // Do any additional setup after loading the view.
     }
     
     
@@ -49,16 +48,10 @@ class QuotesViewController: UIViewController {
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             
             if let data, let response = String(data: data, encoding: .utf8) {
-                print("9",response)
-                
                 let decoder = JSONDecoder()
                 do {
                     let quote = try decoder.decode(Favqs.self, from: data)
-//                    self.quotes = quote.quotes
-//                    self.theQuoteBody = quote.quotes[0].body
-//                    self.theQuoteAuthor = quote.quotes[0].author
-//                    print("9999",self.theQuoteBody,self.theQuoteAuthor)
-                    print("77777",quote.quotes[0])
+
                     completion(quote.quotes)
                     
                 } catch {
@@ -66,7 +59,7 @@ class QuotesViewController: UIViewController {
                     completion(nil)
                 }
                 
-        }
+            }
         }.resume()
     }
     
@@ -83,6 +76,14 @@ class QuotesViewController: UIViewController {
                 
                 self.quoteBody.text = quotes[self.index].body
                 self.quoteAuthor.text = quotes[self.index].author
+                
+                if quotes[self.index].userDetails.favorite == true {
+                    self.bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+                } else {
+                    self.bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+                }
+                
+                
                 self.index += 1
             }
         }
@@ -98,7 +99,7 @@ class QuotesViewController: UIViewController {
             index = 0
             updateText()
         }
-        print(index)
+//        print(index)
     }
 
     @IBAction func shuffle(_ sender: Any) {
@@ -124,10 +125,21 @@ class QuotesViewController: UIViewController {
             
             
         }
-        
-        
     }
     
+    
+    @IBSegueAction func showFavList(_ coder: NSCoder) -> FavQuotesTableViewController? {
+        let controller = FavQuotesTableViewController(coder: coder)
+        controller?.login = loginHeader
+        controller?.userToken = userTokenHeader
+        
+        return controller
+    }
+    
+    @IBAction func changeBackground(_ sender: Any) {
+        backgroundIndex += 1
+        
+    }
     
     
     /*
