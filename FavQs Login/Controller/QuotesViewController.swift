@@ -194,12 +194,6 @@ class QuotesViewController: UIViewController {
             button.isHidden = false
         }
         
-//        if let quotes {
-//            let body = quotes[index-1].body
-//            let author = quotes[index-1].author
-//            let controller = UIActivityViewController(activityItems: [body,"\n",author], applicationActivities: nil)
-//            present(controller, animated: true)
-//        }
     }
     
     

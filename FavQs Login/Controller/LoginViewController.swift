@@ -142,10 +142,18 @@ class LoginViewController: UIViewController {
     
     @IBAction func signUp(_ sender: UIButton) {
         print(sender.tag)
-        if sender.tag == 0 {
-            targetURL = signUpURL
-        } else {
-            targetURL = signInURL
+        
+        if let index = UserSession(rawValue: signInOrUP.selectedSegmentIndex) {
+            switch index {
+            case .signUp:
+                if sender.tag == index.rawValue {
+                    targetURL = signUpURL
+                }
+            case .signIn:
+                if sender.tag == index.rawValue {
+                    targetURL = signInURL
+                }
+            }
         }
         
         updateUser()
